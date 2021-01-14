@@ -1,0 +1,14 @@
+.grid-test {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  background-color: red; 
+  color: white;
+}
+
+.about-hero {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-auto-rows: minmax(300px, auto);
+  background-color: teal;
+}

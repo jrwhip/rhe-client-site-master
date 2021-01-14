@@ -4,11 +4,22 @@ import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
 
-export const AboutPageTemplate = ({ title, content, contentComponent }) => {
+export const AboutPageTemplate = ({ image, title, content, contentComponent }) => {
   const PageContent = contentComponent || Content
 
   return (
-    <section className="section section--gradient">
+    <section className="">
+      <hero 
+        className="about-hero"
+        style={{
+          backgroundImage: `url(${!!image.childImageSharp ? image.childImageSharp.fluid.src : image
+            })`
+        }}
+      >
+      </hero>
+      <div className="about-hero">
+        <p>WHERE OR IS HERE</p>
+      </div>
       <div className="container">
         <div className="columns">
           <div className="column is-10 is-offset-1">
@@ -26,6 +37,7 @@ export const AboutPageTemplate = ({ title, content, contentComponent }) => {
 }
 
 AboutPageTemplate.propTypes = {
+  image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   title: PropTypes.string.isRequired,
   content: PropTypes.string,
   contentComponent: PropTypes.func,
@@ -39,6 +51,7 @@ const AboutPage = ({ data }) => {
       <AboutPageTemplate
         contentComponent={HTMLContent}
         title={post.frontmatter.title}
+        image={post.frontmatter.image}
         content={post.html}
       />
     </Layout>
@@ -57,6 +70,13 @@ export const aboutPageQuery = graphql`
       html
       frontmatter {
         title
+        image {
+          childImageSharp {
+            fluid(maxWidth: 2048, quality: 100) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
     }
   }
